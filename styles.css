@@ -46,14 +46,14 @@ a:hover { text-decoration: underline; text-underline-offset: 0.16em; }
   grid-template-columns: 1fr auto;
   gap: 1rem;
   align-items: start;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 0;
 }
 
 .wordmark {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(2rem, 5.5vw, 6rem);
-  line-height: 0.9;
-  letter-spacing: -0.08em;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
 }
 
 nav {
@@ -61,9 +61,9 @@ nav {
   gap: 0.85rem;
   flex-wrap: wrap;
   justify-content: flex-end;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: clamp(1.1rem, 2.8vw, 2.4rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
 }
 
 main,
@@ -73,7 +73,8 @@ main,
 }
 
 .hero {
-  padding: clamp(2rem, 5vw, 5rem) var(--pad) clamp(3rem, 7vw, 8rem);
+  min-height: 82vh;
+  padding: clamp(15rem, 34vh, 30rem) var(--pad) clamp(2rem, 6vw, 6rem);
   border-bottom: 1px solid var(--rule);
 }
 
@@ -87,13 +88,13 @@ main,
 }
 
 .hero h1 {
-  max-width: 13ch;
+  max-width: 11ch;
   margin: 0.35em 0 0;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: 400;
-  font-size: clamp(4rem, 14vw, 15rem);
+  font-size: clamp(3.4rem, 10.2vw, 10.5rem);
   line-height: 0.86;
-  letter-spacing: -0.08em;
+  letter-spacing: -0.085em;
 }
 
 .hero-grid {
@@ -197,7 +198,15 @@ main,
 
   nav { justify-content: flex-start; }
 
-  .hero h1 { max-width: 10ch; }
+  .hero {
+    min-height: 84vh;
+    padding-top: clamp(16rem, 38vh, 24rem);
+  }
+
+  .hero h1 {
+    max-width: 9ch;
+    font-size: clamp(3.6rem, 17vw, 8.4rem);
+  }
 
   .project {
     grid-template-columns: 1fr;
