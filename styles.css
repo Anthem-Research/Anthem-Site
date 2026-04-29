@@ -43,17 +43,17 @@ a:hover { text-decoration: underline; text-underline-offset: 0.16em; }
   margin: 0 auto;
   padding: var(--pad);
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(1rem, 4vw, 6rem);
   align-items: start;
   border-bottom: 0;
 }
 
 .wordmark {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: clamp(1.4rem, 3vw, 2.8rem);
+  font-size: clamp(1.35rem, 2.8vw, 2.8rem);
   line-height: 0.95;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.055em;
 }
 
 nav {
@@ -64,6 +64,7 @@ nav {
   font-size: clamp(1.1rem, 2.8vw, 2.4rem);
   line-height: 1;
   letter-spacing: -0.05em;
+  text-transform: none;
 }
 
 main,
@@ -73,8 +74,12 @@ main,
 }
 
 .hero {
-  min-height: 82vh;
-  padding: clamp(15rem, 34vh, 30rem) var(--pad) clamp(2rem, 6vw, 6rem);
+  min-height: calc(100svh - 5.5rem);
+  padding: var(--pad);
+  padding-top: clamp(14rem, 42svh, 32rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -88,11 +93,11 @@ main,
 }
 
 .hero h1 {
-  max-width: 11ch;
-  margin: 0.35em 0 0;
+  max-width: 10ch;
+  margin: 0.38em 0 0;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 400;
-  font-size: clamp(3.4rem, 10.2vw, 10.5rem);
+  font-size: clamp(4rem, 15vw, 15rem);
   line-height: 0.86;
   letter-spacing: -0.085em;
 }
@@ -196,16 +201,17 @@ main,
     grid-template-columns: 1fr;
   }
 
+  .site-header { gap: 1.5rem; }
   nav { justify-content: flex-start; }
 
   .hero {
-    min-height: 84vh;
-    padding-top: clamp(16rem, 38vh, 24rem);
+    min-height: calc(100svh - 7.5rem);
+    padding-top: clamp(15rem, 43svh, 25rem);
   }
 
   .hero h1 {
-    max-width: 9ch;
-    font-size: clamp(3.6rem, 17vw, 8.4rem);
+    max-width: 9.5ch;
+    font-size: clamp(4.2rem, 18vw, 8.8rem);
   }
 
   .project {
