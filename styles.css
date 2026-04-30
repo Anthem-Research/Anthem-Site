@@ -14,7 +14,8 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: var(--bg) !important;
+  background-image: none !important;
   color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
@@ -45,8 +46,18 @@ a:hover { text-decoration: underline; text-underline-offset: 0.16em; }
   display: grid;
   grid-template-rows: auto 1fr;
   color: var(--text);
-  background: var(--bg);
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+  background-image: none !important;
   border-bottom: 1px solid var(--rule);
+}
+
+.front-panel::before,
+.front-panel::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  background-image: none !important;
 }
 
 .site-header {
@@ -59,6 +70,7 @@ a:hover { text-decoration: underline; text-underline-offset: 0.16em; }
   gap: clamp(1rem, 4vw, 6rem);
   align-items: start;
   color: var(--text);
+  background-image: none !important;
 }
 
 .wordmark {
@@ -92,6 +104,7 @@ main,
   padding: var(--pad);
   align-self: end;
   padding-bottom: clamp(1.25rem, 4vh, 3rem);
+  background-image: none !important;
 }
 
 .kicker,
@@ -222,6 +235,8 @@ main,
     min-height: 100vh;
     min-height: 100svh;
     min-height: 100dvh;
+    background: var(--bg) !important;
+    background-image: none !important;
   }
 
   .hero {
