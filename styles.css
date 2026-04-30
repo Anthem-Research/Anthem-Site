@@ -4,6 +4,8 @@
   --muted: #64615a;
   --rule: #171714;
   --soft-rule: rgba(17, 17, 15, 0.22);
+  --hero-text: rgba(248, 247, 240, 0.94);
+  --hero-muted: rgba(248, 247, 240, 0.68);
   --max: 1480px;
   --pad: clamp(1rem, 2vw, 2rem);
 }
@@ -38,7 +40,21 @@ a:hover { text-decoration: underline; text-underline-offset: 0.16em; }
 }
 .skip-link:focus { left: 1rem; }
 
+.front-panel {
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  color: var(--hero-text);
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.36)),
+    url('assets/hero.svg') center center / cover no-repeat;
+  border-bottom: 1px solid var(--rule);
+}
+
 .site-header {
+  width: 100%;
   max-width: var(--max);
   margin: 0 auto;
   padding: var(--pad);
@@ -46,7 +62,7 @@ a:hover { text-decoration: underline; text-underline-offset: 0.16em; }
   grid-template-columns: minmax(0, 1fr) auto;
   gap: clamp(1rem, 4vw, 6rem);
   align-items: start;
-  border-bottom: 0;
+  color: var(--hero-text);
 }
 
 .wordmark {
@@ -74,13 +90,12 @@ main,
 }
 
 .hero {
-  min-height: calc(100svh - 5.5rem);
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
   padding: var(--pad);
-  padding-top: clamp(14rem, 42svh, 32rem);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  border-bottom: 1px solid var(--rule);
+  align-self: end;
+  padding-bottom: clamp(1.25rem, 4vh, 3rem);
 }
 
 .kicker,
@@ -90,6 +105,10 @@ main,
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--muted);
+}
+
+.front-panel .kicker {
+  color: var(--hero-muted);
 }
 
 .hero h1 {
@@ -204,14 +223,20 @@ main,
   .site-header { gap: 1.5rem; }
   nav { justify-content: flex-start; }
 
+  .front-panel {
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
+    background-position: center center;
+  }
+
   .hero {
-    min-height: calc(100svh - 7.5rem);
-    padding-top: clamp(15rem, 43svh, 25rem);
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
   }
 
   .hero h1 {
     max-width: 9.5ch;
-    font-size: clamp(4.2rem, 18vw, 8.8rem);
+    font-size: clamp(4.1rem, 17.4vw, 8.6rem);
   }
 
   .project {
