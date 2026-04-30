@@ -47,9 +47,13 @@ a:hover { text-decoration: underline; text-underline-offset: 0.16em; }
   display: grid;
   grid-template-rows: auto 1fr;
   color: var(--hero-text);
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.36)),
-    url('assets/hero.svg') center center / cover no-repeat;
+  background-color: #141710;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.46)),
+    url('assets/hero.svg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -169,7 +173,7 @@ main,
   border-top: 1px solid var(--soft-rule);
 }
 
-.project:first-of-type { margin-top: 2rem; }
+.project:first-of-type { border-top: 0; padding-top: 0; }
 
 .project-number {
   font-family: Georgia, 'Times New Roman', serif;
@@ -227,6 +231,7 @@ main,
     min-height: 100vh;
     min-height: 100svh;
     min-height: 100dvh;
+    background-size: auto 100%;
     background-position: center center;
   }
 
