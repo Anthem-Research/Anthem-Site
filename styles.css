@@ -37,9 +37,8 @@ a:hover {
 .front-panel {
   min-height: 100vh;
   min-height: 100svh;
-  min-height: 100dvh;
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto minmax(0, 1fr);
   color: var(--text);
   background: var(--bg);
   border-bottom: 1px solid var(--rule);
@@ -85,7 +84,7 @@ main,
   margin: 0 auto;
   padding: var(--pad);
   align-self: end;
-  padding-bottom: clamp(3rem, 8vh, 7rem);
+  padding-bottom: clamp(2rem, 6vh, 5rem);
 }
 
 .kicker,
@@ -99,20 +98,20 @@ main,
 
 .hero h1 {
   max-width: 14ch;
-  margin: clamp(1.2rem, 3vw, 2.5rem) 0 0;
+  margin: clamp(1rem, 2.2vw, 2rem) 0 0;
   font-family: Georgia, 'Times New Roman', serif;
   font-weight: 400;
-  font-size: clamp(3.2rem, 8.2vw, 8.8rem);
-  line-height: 0.92;
-  letter-spacing: -0.075em;
+  font-size: clamp(2.8rem, 7.4vw, 8rem);
+  line-height: 0.94;
+  letter-spacing: -0.07em;
 }
 
 .hero-copy {
-  max-width: 44rem;
-  margin: clamp(1.5rem, 3vw, 3rem) 0 0;
+  max-width: 38rem;
+  margin: clamp(1rem, 2vw, 2rem) 0 0;
   color: var(--muted);
-  font-size: clamp(1rem, 1.35vw, 1.22rem);
-  line-height: 1.55;
+  font-size: clamp(0.98rem, 1.2vw, 1.16rem);
+  line-height: 1.5;
 }
 
 .section {
@@ -123,23 +122,11 @@ main,
   border-bottom: 1px solid var(--rule);
 }
 
-.intro-section {
-  padding-bottom: clamp(3.5rem, 7vw, 7rem);
-}
-
 .section p,
 .footer p { margin: 0; }
 
 .section-body {
   max-width: 68rem;
-}
-
-.statement-block p {
-  max-width: 58rem;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(1.8rem, 3.4vw, 4rem);
-  line-height: 1.05;
-  letter-spacing: -0.055em;
 }
 
 .project {
@@ -317,32 +304,30 @@ main,
   }
 
   .front-panel {
-    min-height: auto;
+    min-height: 100svh;
   }
 
   .hero {
-    padding-top: clamp(3.5rem, 15vh, 8rem);
-    padding-bottom: max(3rem, env(safe-area-inset-bottom));
+    align-self: center;
+    padding-top: 2rem;
+    padding-bottom: max(2rem, env(safe-area-inset-bottom));
   }
 
   .hero h1 {
     max-width: 11ch;
-    font-size: clamp(3.1rem, 12.5vw, 6.2rem);
-    line-height: 0.95;
-    letter-spacing: -0.07em;
+    font-size: clamp(2.9rem, 11.6vw, 5.7rem);
+    line-height: 0.97;
+    letter-spacing: -0.065em;
   }
 
   .hero-copy {
-    margin-top: 1.5rem;
+    max-width: 32rem;
+    margin-top: 1.2rem;
   }
 
   .section {
     padding-top: 2rem;
     padding-bottom: 5rem;
-  }
-
-  .statement-block p {
-    font-size: clamp(2rem, 9vw, 3.6rem);
   }
 
   .project {
