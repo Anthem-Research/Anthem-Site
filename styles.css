@@ -24,22 +24,14 @@ body {
 
 body::selection { background: var(--text); color: var(--bg); }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.16em;
-}
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 0.16em; }
 
 .front-panel {
   min-height: 100vh;
   min-height: 100svh;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  color: var(--text);
   background: var(--bg);
   border-bottom: 1px solid var(--rule);
 }
@@ -67,16 +59,12 @@ nav {
   flex-direction: column;
   align-items: flex-end;
   gap: 0.2rem;
-  font-size: clamp(1.1rem, 2.6vw, 2.25rem);
+  font-size: clamp(1rem, 2.2vw, 1.9rem);
   line-height: 1.05;
   letter-spacing: -0.05em;
 }
 
-main,
-.footer {
-  max-width: var(--max);
-  margin: 0 auto;
-}
+main, .footer { max-width: var(--max); margin: 0 auto; }
 
 .hero {
   width: 100%;
@@ -87,8 +75,7 @@ main,
   padding-bottom: clamp(2rem, 6vh, 5rem);
 }
 
-.kicker,
-.section-label {
+.kicker, .section-label {
   margin: 0;
   font-size: 0.76rem;
   text-transform: uppercase;
@@ -114,6 +101,19 @@ main,
   line-height: 1.5;
 }
 
+.hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin-top: clamp(1.5rem, 3vw, 3rem);
+  font-size: clamp(0.95rem, 1.15vw, 1.08rem);
+}
+
+.hero-links a, .offer-card, .support-note a, .footer a {
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+}
+
 .section {
   display: grid;
   grid-template-columns: minmax(8rem, 18rem) 1fr;
@@ -122,11 +122,34 @@ main,
   border-bottom: 1px solid var(--rule);
 }
 
-.section p,
-.footer p { margin: 0; }
+.section p, .footer p { margin: 0; }
+.section-body { max-width: 68rem; }
 
-.section-body {
-  max-width: 68rem;
+.offer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  max-width: none;
+  border: 1px solid var(--rule);
+}
+
+.offer-card {
+  display: grid;
+  gap: 1.5rem;
+  padding: clamp(1rem, 2vw, 2rem);
+  min-height: 13rem;
+  background: var(--bg);
+  text-decoration: none;
+}
+
+.offer-card + .offer-card { border-left: 1px solid var(--rule); }
+.offer-card span, .offer-card em { color: var(--muted); font-style: normal; }
+.offer-card strong {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 4vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
 }
 
 .project {
@@ -137,18 +160,14 @@ main,
   border-top: 1px solid var(--soft-rule);
 }
 
-.section-body .project:first-child {
-  border-top: 0;
-  padding-top: clamp(1rem, 2vw, 2rem);
-}
+.section-body .project:first-child { border-top: 0; padding-top: clamp(1rem, 2vw, 2rem); }
 
-.project-number {
+.project-number, .rate-index {
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(2rem, 4vw, 4.5rem);
   line-height: 1;
   letter-spacing: -0.06em;
 }
-
+.project-number { font-size: clamp(2rem, 4vw, 4.5rem); }
 .project h3 {
   margin: 0 0 clamp(1rem, 2vw, 2rem);
   font-family: Georgia, 'Times New Roman', serif;
@@ -157,30 +176,15 @@ main,
   line-height: 0.95;
   letter-spacing: -0.06em;
 }
-
 .project p {
   max-width: 50rem;
   margin-top: 1rem;
   font-size: clamp(1rem, 1.35vw, 1.22rem);
   line-height: 1.5;
 }
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 42rem) auto;
-  gap: 2rem;
-  justify-content: space-between;
-}
-
-.page-header {
-  border-bottom: 1px solid var(--rule);
-}
-
-.support-page {
-  max-width: var(--max);
-  margin: 0 auto;
-}
-
+.footer-grid { display: grid; grid-template-columns: minmax(0, 42rem) auto; gap: 2rem; justify-content: space-between; }
+.page-header { border-bottom: 1px solid var(--rule); }
+.support-page { max-width: var(--max); margin: 0 auto; }
 .support-intro {
   display: grid;
   grid-template-columns: minmax(8rem, 18rem) minmax(0, 42rem);
@@ -188,7 +192,6 @@ main,
   padding: clamp(3rem, 6vw, 7rem) var(--pad) clamp(2.5rem, 5vw, 5rem);
   border-bottom: 1px solid var(--rule);
 }
-
 .support-intro h1 {
   margin: 0;
   font-family: Georgia, 'Times New Roman', serif;
@@ -197,18 +200,13 @@ main,
   line-height: 0.95;
   letter-spacing: -0.065em;
 }
-
 .support-intro p:not(.section-label) {
   margin: clamp(1.5rem, 3vw, 3rem) 0 0;
   color: var(--muted);
   font-size: clamp(1rem, 1.35vw, 1.22rem);
   line-height: 1.55;
 }
-
-.rate-card {
-  padding: 0 var(--pad);
-}
-
+.rate-card { padding: 0 var(--pad); }
 .rate-row {
   display: grid;
   grid-template-columns: 4rem minmax(9rem, 17rem) minmax(8rem, 12rem) minmax(0, 42rem);
@@ -217,20 +215,8 @@ main,
   border-bottom: 1px solid var(--soft-rule);
   align-items: start;
 }
-
-.rate-index,
-.rate-price,
-.rate-copy p {
-  margin: 0;
-}
-
-.rate-index {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(1.3rem, 2.4vw, 2.4rem);
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-
+.rate-index, .rate-price, .rate-copy p { margin: 0; }
+.rate-index { font-size: clamp(1.3rem, 2.4vw, 2.4rem); letter-spacing: -0.04em; }
 .rate-row h2 {
   margin: 0;
   font-family: Georgia, 'Times New Roman', serif;
@@ -239,147 +225,38 @@ main,
   line-height: 0.95;
   letter-spacing: -0.06em;
 }
-
-.rate-price {
-  color: var(--muted);
-  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
-  line-height: 1.35;
-}
-
-.rate-copy p {
-  max-width: 42rem;
-  font-size: clamp(1rem, 1.2vw, 1.14rem);
-  line-height: 1.55;
-}
-
-.rate-copy p + p {
-  margin-top: 0.9rem;
-}
-
-.support-note {
-  padding: clamp(2rem, 4vw, 4rem) var(--pad) clamp(5rem, 9vw, 10rem);
-}
-
-.support-note p {
-  max-width: 42rem;
-  margin: 0;
-  color: var(--muted);
-  font-size: clamp(1rem, 1.2vw, 1.14rem);
-  line-height: 1.55;
-}
+.rate-price { color: var(--muted); font-size: clamp(0.95rem, 1.2vw, 1.15rem); line-height: 1.35; }
+.rate-copy p { max-width: 42rem; font-size: clamp(1rem, 1.2vw, 1.14rem); line-height: 1.55; }
+.rate-copy p + p { margin-top: 0.9rem; }
+.support-note { padding: clamp(2rem, 4vw, 4rem) var(--pad) clamp(5rem, 9vw, 10rem); }
+.support-note p { max-width: 42rem; margin: 0; color: var(--muted); font-size: clamp(1rem, 1.2vw, 1.14rem); line-height: 1.55; }
 
 @media (max-width: 900px) {
-  .rate-row {
-    grid-template-columns: 3rem 1fr;
-  }
-
-  .rate-price,
-  .rate-copy {
-    grid-column: 2;
-  }
+  .rate-row { grid-template-columns: 3rem 1fr; }
+  .rate-price, .rate-copy { grid-column: 2; }
+  .offer-grid { grid-template-columns: 1fr; }
+  .offer-card + .offer-card { border-left: 0; border-top: 1px solid var(--rule); }
 }
 
 @media (max-width: 760px) {
-  .site-header,
-  .section,
-  .footer-grid,
-  .support-intro {
-    grid-template-columns: 1fr;
-  }
-
-  .site-header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 1.5rem;
-  }
-
-  .wordmark {
-    font-size: clamp(2.2rem, 12vw, 4.5rem);
-  }
-
-  nav {
-    align-items: flex-end;
-    justify-content: flex-start;
-    font-size: clamp(1.1rem, 4.4vw, 1.65rem);
-  }
-
-  .front-panel {
-    min-height: 100svh;
-  }
-
-  .hero {
-    align-self: center;
-    padding-top: 2rem;
-    padding-bottom: max(2rem, env(safe-area-inset-bottom));
-  }
-
-  .hero h1 {
-    max-width: 11ch;
-    font-size: clamp(2.9rem, 11.6vw, 5.7rem);
-    line-height: 0.97;
-    letter-spacing: -0.065em;
-  }
-
-  .hero-copy {
-    max-width: 32rem;
-    margin-top: 1.2rem;
-  }
-
-  .section {
-    padding-top: 2rem;
-    padding-bottom: 5rem;
-  }
-
-  .project {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 3.75rem 0;
-  }
-
-  .section-body .project:first-child {
-    padding-top: 2rem;
-  }
-
-  .project-number {
-    font-size: 1rem;
-    font-family: Georgia, 'Times New Roman', serif;
-    letter-spacing: -0.02em;
-  }
-
-  .project h3 {
-    margin-bottom: 1.35rem;
-  }
-
-  .project p {
-    margin-top: 1.15rem;
-    line-height: 1.55;
-  }
-
-  .support-intro {
-    padding-top: 3rem;
-    padding-bottom: 2.5rem;
-  }
-
-  .support-intro h1 {
-    font-size: clamp(3.3rem, 15vw, 7rem);
-  }
-
-  .rate-row {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-    padding: 2.75rem 0;
-  }
-
-  .rate-price,
-  .rate-copy {
-    grid-column: auto;
-  }
-
-  .rate-index {
-    font-size: 1rem;
-  }
-
-  .rate-row h2 {
-    font-size: clamp(2.7rem, 13vw, 6rem);
-  }
+  .site-header, .section, .footer-grid, .support-intro { grid-template-columns: 1fr; }
+  .site-header { display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; }
+  .wordmark { font-size: clamp(2.2rem, 12vw, 4.5rem); }
+  nav { align-items: flex-end; justify-content: flex-start; font-size: clamp(1rem, 3.8vw, 1.35rem); }
+  .front-panel { min-height: 100svh; }
+  .hero { align-self: center; padding-top: 2rem; padding-bottom: max(2rem, env(safe-area-inset-bottom)); }
+  .hero h1 { max-width: 11ch; font-size: clamp(2.9rem, 11.6vw, 5.7rem); line-height: 0.97; letter-spacing: -0.065em; }
+  .hero-copy { max-width: 32rem; margin-top: 1.2rem; }
+  .section { padding-top: 2rem; padding-bottom: 5rem; }
+  .project { grid-template-columns: 1fr; gap: 1rem; padding: 3.75rem 0; }
+  .section-body .project:first-child { padding-top: 2rem; }
+  .project-number { font-size: 1rem; font-family: Georgia, 'Times New Roman', serif; letter-spacing: -0.02em; }
+  .project h3 { margin-bottom: 1.35rem; }
+  .project p { margin-top: 1.15rem; line-height: 1.55; }
+  .support-intro { padding-top: 3rem; padding-bottom: 2.5rem; }
+  .support-intro h1 { font-size: clamp(3.3rem, 15vw, 7rem); }
+  .rate-row { grid-template-columns: 1fr; gap: 0.75rem; padding: 2.75rem 0; }
+  .rate-price, .rate-copy { grid-column: auto; }
+  .rate-index { font-size: 1rem; }
+  .rate-row h2 { font-size: clamp(2.7rem, 13vw, 6rem); }
 }
