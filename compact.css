@@ -10,6 +10,10 @@
   padding: clamp(2.5rem, 5vw, 5rem) var(--pad) clamp(1.25rem, 2.5vw, 2.25rem);
 }
 
+.page-header {
+  border-bottom: 0;
+}
+
 .compact-head h1 {
   margin: 0;
   font-family: Georgia, 'Times New Roman', serif;
@@ -28,19 +32,19 @@
 }
 
 .compact-list {
-  padding: 0 var(--pad) clamp(5rem, 8vw, 8rem);
+  padding: 0 var(--pad) clamp(3rem, 6vw, 6rem);
 }
 
 .compact-row {
   display: grid;
-  grid-template-columns: minmax(5rem, 8rem) minmax(8rem, 15rem) minmax(0, 44rem);
-  gap: clamp(1rem, 3vw, 4rem);
-  padding: 0.65rem 0;
+  grid-template-columns: minmax(5rem, 8rem) minmax(8rem, 15rem) minmax(6rem, 10rem) minmax(0, 34rem);
+  gap: clamp(1rem, 2.8vw, 3.5rem);
+  padding: 0.55rem 0;
   align-items: baseline;
 }
 
 .compact-row + .compact-row {
-  margin-top: 0.85rem;
+  margin-top: 0.7rem;
 }
 
 .compact-date,
@@ -60,31 +64,50 @@
   margin: 0;
   font-family: Georgia, 'Times New Roman', serif;
   font-weight: 400;
-  font-size: clamp(1.25rem, 2vw, 2.1rem);
+  font-size: clamp(1.2rem, 1.7vw, 1.9rem);
   line-height: 1.05;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.035em;
 }
 
 .compact-copy p {
-  max-width: 42rem;
-  font-size: clamp(0.95rem, 1.05vw, 1.02rem);
-  line-height: 1.55;
+  max-width: 34rem;
+  font-size: clamp(0.92rem, 1vw, 1rem);
+  line-height: 1.5;
 }
 
 .compact-copy p + p {
-  margin-top: 0.75rem;
+  margin-top: 0.7rem;
 }
 
-.compact-note {
-  padding: 0 var(--pad) clamp(5rem, 8vw, 8rem);
+.compact-note,
+.compact-footer {
+  padding: 0 var(--pad) clamp(4rem, 7vw, 7rem);
 }
 
-.compact-note p {
+.compact-note p,
+.compact-footer p {
   max-width: 42rem;
   margin: 0;
   color: var(--muted);
-  font-size: clamp(0.95rem, 1.05vw, 1.02rem);
+  font-size: clamp(0.92rem, 1vw, 1rem);
   line-height: 1.55;
+}
+
+.compact-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem clamp(2rem, 5vw, 5rem);
+}
+
+@media (max-width: 900px) {
+  .compact-row {
+    grid-template-columns: minmax(4rem, 7rem) minmax(8rem, 1fr);
+  }
+
+  .compact-type,
+  .compact-copy {
+    grid-column: 2;
+  }
 }
 
 @media (max-width: 760px) {
@@ -104,5 +127,10 @@
   .compact-row {
     gap: 0.3rem;
     padding: 1rem 0;
+  }
+
+  .compact-type,
+  .compact-copy {
+    grid-column: auto;
   }
 }
