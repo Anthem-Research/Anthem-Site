@@ -3,36 +3,12 @@
   margin: 0 auto;
 }
 
-.compact-head {
-  display: grid;
-  grid-template-columns: minmax(8rem, 17rem) minmax(0, 42rem);
-  gap: clamp(2rem, 5.5vw, 7.5rem);
-  padding: clamp(2.5rem, 5vw, 5rem) var(--pad) clamp(1.25rem, 2.5vw, 2.25rem);
-}
-
 .page-header {
   border-bottom: 0;
 }
 
-.compact-head h1 {
-  margin: 0;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-weight: 400;
-  font-size: clamp(2.15rem, 4.2vw, 4.8rem);
-  line-height: 1;
-  letter-spacing: -0.05em;
-}
-
-.compact-head p:not(.section-label) {
-  max-width: 34rem;
-  margin: 1rem 0 0;
-  color: var(--muted);
-  font-size: clamp(0.95rem, 1.05vw, 1.02rem);
-  line-height: 1.55;
-}
-
-.compact-list {
-  padding: 0 var(--pad) clamp(3rem, 6vw, 6rem);
+.releases-list {
+  padding: clamp(3rem, 6vw, 6rem) var(--pad) clamp(3rem, 6vw, 6rem);
 }
 
 .compact-row {
@@ -79,12 +55,28 @@
   margin-top: 0.7rem;
 }
 
-.compact-note,
-.compact-footer {
-  padding: 0 var(--pad) clamp(4rem, 7vw, 7rem);
+.research-text {
+  max-width: 42rem;
+  padding: clamp(3rem, 6vw, 6rem) var(--pad) clamp(2.5rem, 5vw, 5rem);
 }
 
-.compact-note p,
+.research-text p {
+  margin: 0;
+  font-size: clamp(1rem, 1.15vw, 1.08rem);
+  line-height: 1.62;
+}
+
+.research-text p + p {
+  margin-top: 1rem;
+}
+
+.compact-footer {
+  padding: 0 var(--pad) clamp(4rem, 7vw, 7rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem clamp(2rem, 5vw, 5rem);
+}
+
 .compact-footer p {
   max-width: 42rem;
   margin: 0;
@@ -93,10 +85,8 @@
   line-height: 1.55;
 }
 
-.compact-footer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem clamp(2rem, 5vw, 5rem);
+.research-footer {
+  padding-top: 0;
 }
 
 @media (max-width: 900px) {
@@ -111,20 +101,8 @@
 }
 
 @media (max-width: 760px) {
-  .compact-head,
   .compact-row {
     grid-template-columns: 1fr;
-  }
-
-  .compact-head {
-    padding-top: 2.5rem;
-  }
-
-  .compact-head h1 {
-    font-size: clamp(2.5rem, 11vw, 5rem);
-  }
-
-  .compact-row {
     gap: 0.3rem;
     padding: 1rem 0;
   }
@@ -132,5 +110,9 @@
   .compact-type,
   .compact-copy {
     grid-column: auto;
+  }
+
+  .research-text {
+    max-width: none;
   }
 }
