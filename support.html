@@ -3,64 +3,59 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Access — Anthem</title>
-  <meta name="description" content="Access Anthem through public work, framework licences, and selective consulting engagements.">
-  <link rel="stylesheet" href="styles.css?v=20260509-01">
+  <title>Support — Anthem</title>
+  <meta name="description" content="Support Anthem through patronage, journal access, or research access.">
+  <link rel="stylesheet" href="styles.css?v=20260522-01">
+  <link rel="stylesheet" href="theme.css?v=20260521-01">
+  <link rel="stylesheet" href="payment.css?v=20260522-01">
 </head>
 <body>
   <header class="site-header page-header">
     <a class="wordmark" href="/">Anthem</a>
     <nav aria-label="Primary navigation">
-      <a href="/">Work</a>
-      <a href="support.html" aria-current="page">Access</a>
+      <a href="/#work">Work</a>
+      <a href="releases.html">Releases</a>
+      <a href="research.html">Research</a>
+      <a href="support.html">Support</a>
       <a href="mailto:hello@anthemresearch.xyz">Contact</a>
     </nav>
   </header>
 
-  <main class="support-page">
-    <section class="support-intro">
-      <p class="section-label">Access</p>
-      <div>
-        <h1>Access Anthem.</h1>
-        <p>Anthem develops independent systems and makes selected work available through public releases, framework licences, and limited advisory engagements.</p>
-      </div>
+  <main class="payment-page">
+    <section class="payment-intro">
+      <p>Support for Anthem is structured through three recurring layers: patronage, journal access, and research access.</p>
+      <p>Payment links are configured as external hosted checkout links. Replace the placeholder email links in <code>payments.js</code> with Paystack Payment Page links or PayPal subscription links when they are created.</p>
     </section>
 
-    <section class="rate-card" aria-label="Access structure">
-      <article class="rate-row">
-        <p class="rate-index">I</p>
-        <h2>Public</h2>
-        <p class="rate-price">Open</p>
-        <div class="rate-copy">
-          <p>Selected project pages, diagrams, public documents, demos, and releases.</p>
-          <p>The public layer is an index of work, not a feed or publication schedule.</p>
-        </div>
+    <section class="payment-tiers" aria-label="Support options">
+      <article class="payment-tier">
+        <h2>Supporter</h2>
+        <p class="payment-price">$7/month</p>
+        <p class="payment-copy">Patronage only. No access, schedule, or deliverable is attached to this tier.</p>
+        <a class="payment-action" href="mailto:hello@anthemresearch.xyz" data-payment-tier="supporter">Support</a>
       </article>
 
-      <article class="rate-row">
-        <p class="rate-index">II</p>
-        <h2>Licence</h2>
-        <p class="rate-price">By project</p>
-        <div class="rate-copy">
-          <p>Defined rights to use a specific Anthem system in a specific context.</p>
-          <p>A licence may include manuals, templates, repositories, reference interfaces, standards, and versioned updates. It does not include custom implementation, hosting, or open-ended support unless separately agreed.</p>
-        </div>
+      <article class="payment-tier">
+        <h2>Journal</h2>
+        <p class="payment-price">$40/month</p>
+        <p class="payment-copy">Monthly journal dispatch from Anthem: project notes, research fragments, field observations, release commentary, technical sketches, and occasional deeper studies.</p>
+        <a class="payment-action" href="mailto:hello@anthemresearch.xyz" data-payment-tier="journal">Subscribe</a>
       </article>
 
-      <article class="rate-row">
-        <p class="rate-index">III</p>
-        <h2>Consult</h2>
-        <p class="rate-price">Selective</p>
-        <div class="rate-copy">
-          <p>Limited advisory or applied work where the engagement fits Anthem’s direction.</p>
-          <p>Relevant areas include physical coordination, protocol architecture, AI-assisted systems, material intelligence, site logic, ecological data, interface direction, and strategic structure.</p>
-        </div>
+      <article class="payment-tier">
+        <h2>Research</h2>
+        <p class="payment-price">$400/month</p>
+        <p class="payment-copy">Access to selected working documents, protocols, build logs, repositories, specifications, draft frameworks, and research-use fork rights under defined terms.</p>
+        <a class="payment-action" href="mailto:hello@anthemresearch.xyz" data-payment-tier="research">Request access</a>
       </article>
     </section>
 
-    <section class="support-note">
-      <p>For licence or consulting enquiries: <a href="mailto:hello@anthemresearch.xyz">hello@anthemresearch.xyz</a>.</p>
+    <section class="payment-note">
+      <p>Research access is reviewed before activation. Payment does not grant ownership, commercial rights, redistribution rights, or unrestricted use of private methods, documents, software, templates, or repositories.</p>
+      <p>For Paystack, create three recurring Payment Pages and paste each URL into <code>payments.js</code>. For PayPal, create three subscription plans and paste each subscription checkout URL into the same file.</p>
     </section>
   </main>
+
+  <script src="payments.js?v=20260522-01"></script>
 </body>
 </html>
