@@ -1,0 +1,14 @@
+.payment-page{max-width:var(--max);margin:0 auto;padding:clamp(3rem,6vw,6rem) var(--pad) clamp(5rem,8vw,8rem)}
+.payment-intro{max-width:42rem;margin-bottom:clamp(2.5rem,5vw,5rem)}
+.payment-intro p{margin:0;font-size:clamp(1rem,1.15vw,1.08rem);line-height:1.62}
+.payment-intro p+p{margin-top:1rem}
+.payment-tiers{max-width:58rem}
+.payment-tier{display:grid;grid-template-columns:minmax(8rem,13rem) minmax(0,1fr) auto;gap:clamp(1rem,3vw,4rem);align-items:baseline;padding:1.15rem 0}
+.payment-tier h2,.payment-tier p{margin:0}
+.payment-tier h2{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:clamp(1.45rem,2vw,2.2rem);line-height:1.05;letter-spacing:-.04em}
+.payment-price{color:var(--muted);font-size:.95rem;white-space:nowrap}
+.payment-copy{font-size:clamp(.95rem,1.05vw,1.02rem);line-height:1.55}
+.payment-action{text-decoration:underline;text-underline-offset:.16em;white-space:nowrap}
+.payment-note{max-width:42rem;margin-top:clamp(2.5rem,5vw,5rem);color:var(--muted);font-size:.95rem;line-height:1.55}
+.payment-note p{margin:0}.payment-note p+p{margin-top:.8rem}
+@media(max-width:760px){.payment-tier{grid-template-columns:1fr;gap:.4rem;padding:1.5rem 0}.payment-price{white-space:normal}}
