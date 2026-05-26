@@ -25,6 +25,7 @@ main, .footer { max-width: var(--max); margin: 0 auto; }
 .hero-copy { max-width: 39rem; margin: clamp(1.6rem, 3vw, 3rem) 0 0; color: var(--muted); font-size: clamp(0.98rem, 1.2vw, 1.16rem); line-height: 1.58; }
 .hero-links { display: none; }
 .section { display: grid; grid-template-columns: minmax(8rem, 17rem) 1fr; gap: clamp(2rem, 5.5vw, 7.5rem); padding: clamp(2.75rem, 5vw, 5rem) var(--pad) clamp(5.5rem, 9vw, 10rem); border-bottom: 1px solid var(--rule); }
+.work-section { border-bottom: 0; }
 .footer.section { border: 0; padding-top: clamp(2.75rem, 5vw, 5rem); color: var(--muted); }
 .section p, .footer p { margin: 0; }
 .section-body { max-width: 66rem; }
