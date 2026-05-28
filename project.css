@@ -6,30 +6,35 @@
 
 .project-hero {
   display: block;
-  max-width: 58rem;
-  margin: 0 0 clamp(2rem, 4vw, 4rem);
+  max-width: 52rem;
+  margin: 0 0 clamp(1.8rem, 3.6vw, 3.5rem);
+}
+
+.project-hero .kicker {
+  margin: 0 0 0.45rem;
+  line-height: 1;
 }
 
 .project-hero h1 {
   margin: 0;
   font-family: Georgia, 'Times New Roman', serif;
   font-weight: 400;
-  font-size: clamp(3rem, 6.5vw, 7.5rem);
-  line-height: 0.95;
-  letter-spacing: -0.065em;
+  font-size: clamp(2.55rem, 4.6vw, 5.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.058em;
 }
 
 .project-hero p:not(.kicker) {
-  max-width: 50rem;
-  margin: clamp(1.25rem, 2.4vw, 2.25rem) 0 0;
+  max-width: 48rem;
+  margin: clamp(1.15rem, 2.1vw, 2rem) 0 0;
   color: var(--muted);
-  font-size: clamp(1rem, 1.25vw, 1.22rem);
+  font-size: clamp(1rem, 1.18vw, 1.16rem);
   line-height: 1.6;
 }
 
 .project-brief {
   display: block;
-  max-width: 50rem;
+  max-width: 48rem;
   padding: 0;
   border-top: 0;
 }
@@ -43,9 +48,9 @@
 }
 
 .project-brief p {
-  max-width: 50rem;
+  max-width: 48rem;
   margin: 0;
-  font-size: clamp(1rem, 1.2vw, 1.16rem);
+  font-size: clamp(1rem, 1.15vw, 1.12rem);
   line-height: 1.62;
 }
 
@@ -67,6 +72,6 @@
   }
 
   .project-hero h1 {
-    font-size: clamp(3rem, 14vw, 5.6rem);
+    font-size: clamp(2.8rem, 11vw, 4.25rem);
   }
 }
