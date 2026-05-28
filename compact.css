@@ -1,6 +1,10 @@
 .compact-page {
   max-width: var(--max);
   margin: 0 auto;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .page-header {
@@ -71,6 +75,7 @@
 }
 
 .compact-footer {
+  margin-top: auto;
   padding: 0 var(--pad) clamp(4rem, 7vw, 7rem);
   display: flex;
   flex-wrap: wrap;
