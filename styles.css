@@ -122,3 +122,10 @@ body > main,
 .footer .section-body {
   max-width: none;
 }
+
+.wordmark {
+  position: fixed;
+  top: var(--pad);
+  left: var(--pad);
+  z-index: 30;
+}
