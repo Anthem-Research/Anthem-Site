@@ -129,3 +129,10 @@ body > main,
   left: var(--pad);
   z-index: 30;
 }
+
+.site-header nav {
+  position: fixed;
+  top: var(--pad);
+  right: var(--pad);
+  z-index: 30;
+}
