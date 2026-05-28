@@ -1,12 +1,14 @@
 .project-page {
-  max-width: var(--max);
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
   padding: clamp(8rem, 18vh, 15rem) var(--pad) clamp(8rem, 14vw, 15rem);
 }
 
 .project-hero {
   display: block;
-  max-width: 52rem;
+  width: 100%;
+  max-width: none;
   margin: 0 0 clamp(1.8rem, 3.6vw, 3.5rem);
 }
 
@@ -25,7 +27,8 @@
 }
 
 .project-hero p:not(.kicker) {
-  max-width: 48rem;
+  width: 100%;
+  max-width: none;
   margin: clamp(1.15rem, 2.1vw, 2rem) 0 0;
   color: var(--muted);
   font-size: clamp(1rem, 1.18vw, 1.16rem);
@@ -34,7 +37,8 @@
 
 .project-brief {
   display: block;
-  max-width: 48rem;
+  width: 100%;
+  max-width: none;
   padding: 0;
   border-top: 0;
 }
@@ -48,7 +52,8 @@
 }
 
 .project-brief p {
-  max-width: 48rem;
+  width: 100%;
+  max-width: none;
   margin: 0;
   font-size: clamp(1rem, 1.15vw, 1.12rem);
   line-height: 1.62;
