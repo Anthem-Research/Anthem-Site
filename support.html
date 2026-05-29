@@ -7,7 +7,7 @@
   <meta name="description" content="Voluntary monthly support for Anthem Research.">
   <link rel="stylesheet" href="styles.css?v=20260526-02">
   <link rel="stylesheet" href="theme.css?v=20260521-01">
-  <link rel="stylesheet" href="payment.css?v=20260529-01">
+  <link rel="stylesheet" href="project.css?v=20260529-01">
 </head>
 <body>
   <header class="site-header page-header">
@@ -20,24 +20,25 @@
     </nav>
   </header>
 
-  <main class="payment-page support-page">
-    <section class="payment-intro support-intro-block">
+  <main class="project-page support-page">
+    <section class="project-hero">
       <p class="kicker">Support</p>
-      <h1>Support Anthem Research.</h1>
-      <p>Voluntary monthly support for Anthem Research’s independent research, writing, design, and experimental systems work.</p>
-      <p>Occasional updates may be sent at Anthem’s discretion. No guaranteed deliverables, product access, consulting time, commercial rights, or access rights are included.</p>
+      <div>
+        <h1>Support Anthem Research.</h1>
+        <p>Voluntary monthly support for Anthem Research’s independent research, writing, design, and experimental systems work.</p>
+      </div>
     </section>
 
-    <form class="support-form" id="support-form">
-      <label for="support-name">Name</label>
-      <input id="support-name" name="name" autocomplete="name" placeholder="Name">
+    <section class="project-brief support-copy">
+      <div>
+        <p>Occasional updates may be sent at Anthem’s discretion. No guaranteed deliverables, product access, consulting time, commercial rights, or access rights are included.</p>
+        <p>Support is processed through PayPal as a monthly subscription.</p>
+      </div>
+    </section>
 
-      <label for="support-email">Email</label>
-      <input id="support-email" name="email" type="email" autocomplete="email" placeholder="Email" required>
-
-      <button type="submit">Support — ZAR 240/month</button>
-      <p class="support-status" id="support-status" role="status"></p>
-    </form>
+    <section class="project-brief support-paypal">
+      <div id="paypal-button-container-P-5FH69865G8708323TNIM6PJY"></div>
+    </section>
   </main>
 
   <footer class="footer section" id="contact">
@@ -47,6 +48,24 @@
     </div>
   </footer>
 
-  <script src="support.js?v=20260529-01"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AVwLBXjyX6b6INliC9vpkkwBRE3gqBa5Ve_g6U-AH8JGsaBUSyCp2nYXjg9KeLoKOi6zQoucYaGkgtAU&amp;vault=true&amp;intent=subscription" data-sdk-integration-source="button-factory"></script>
+  <script>
+    paypal.Buttons({
+      style: {
+        shape: 'rect',
+        color: 'white',
+        layout: 'vertical',
+        label: 'paypal'
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          plan_id: 'P-5FH69865G8708323TNIM6PJY'
+        });
+      },
+      onApprove: function(data, actions) {
+        window.location.href = '/support.html?subscription=' + encodeURIComponent(data.subscriptionID);
+      }
+    }).render('#paypal-button-container-P-5FH69865G8708323TNIM6PJY');
+  </script>
 </body>
 </html>
