@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Support — Anthem</title>
-  <meta name="description" content="Support Anthem through patronage, journal access, or research access.">
-  <link rel="stylesheet" href="styles.css?v=20260522-01">
+  <meta name="description" content="Voluntary monthly support for Anthem Research.">
+  <link rel="stylesheet" href="styles.css?v=20260526-02">
   <link rel="stylesheet" href="theme.css?v=20260521-01">
-  <link rel="stylesheet" href="payment.css?v=20260522-01">
+  <link rel="stylesheet" href="payment.css?v=20260529-01">
 </head>
 <body>
   <header class="site-header page-header">
@@ -15,47 +15,38 @@
     <nav aria-label="Primary navigation">
       <a href="/#work">Work</a>
       <a href="releases.html">Releases</a>
-      <a href="research.html">Research</a>
       <a href="support.html">Support</a>
       <a href="mailto:hello@anthemresearch.xyz">Contact</a>
     </nav>
   </header>
 
-  <main class="payment-page">
-    <section class="payment-intro">
-      <p>Support for Anthem is structured through three recurring layers: patronage, journal access, and research access.</p>
-      <p>Payment links are configured as external hosted checkout links. Replace the placeholder email links in <code>payments.js</code> with Paystack Payment Page links or PayPal subscription links when they are created.</p>
+  <main class="payment-page support-page">
+    <section class="payment-intro support-intro-block">
+      <p class="kicker">Support</p>
+      <h1>Support Anthem Research.</h1>
+      <p>Voluntary monthly support for Anthem Research’s independent research, writing, design, and experimental systems work.</p>
+      <p>Occasional updates may be sent at Anthem’s discretion. No guaranteed deliverables, product access, consulting time, commercial rights, or access rights are included.</p>
     </section>
 
-    <section class="payment-tiers" aria-label="Support options">
-      <article class="payment-tier">
-        <h2>Supporter</h2>
-        <p class="payment-price">$7/month</p>
-        <p class="payment-copy">Patronage only. No access, schedule, or deliverable is attached to this tier.</p>
-        <a class="payment-action" href="mailto:hello@anthemresearch.xyz" data-payment-tier="supporter">Support</a>
-      </article>
+    <form class="support-form" id="support-form">
+      <label for="support-name">Name</label>
+      <input id="support-name" name="name" autocomplete="name" placeholder="Name">
 
-      <article class="payment-tier">
-        <h2>Journal</h2>
-        <p class="payment-price">$40/month</p>
-        <p class="payment-copy">Monthly journal dispatch from Anthem: project notes, research fragments, field observations, release commentary, technical sketches, and occasional deeper studies.</p>
-        <a class="payment-action" href="mailto:hello@anthemresearch.xyz" data-payment-tier="journal">Subscribe</a>
-      </article>
+      <label for="support-email">Email</label>
+      <input id="support-email" name="email" type="email" autocomplete="email" placeholder="Email" required>
 
-      <article class="payment-tier">
-        <h2>Research</h2>
-        <p class="payment-price">$400/month</p>
-        <p class="payment-copy">Access to selected working documents, protocols, build logs, repositories, specifications, draft frameworks, and research-use fork rights under defined terms.</p>
-        <a class="payment-action" href="mailto:hello@anthemresearch.xyz" data-payment-tier="research">Request access</a>
-      </article>
-    </section>
-
-    <section class="payment-note">
-      <p>Research access is reviewed before activation. Payment does not grant ownership, commercial rights, redistribution rights, or unrestricted use of private methods, documents, software, templates, or repositories.</p>
-      <p>For Paystack, create three recurring Payment Pages and paste each URL into <code>payments.js</code>. For PayPal, create three subscription plans and paste each subscription checkout URL into the same file.</p>
-    </section>
+      <button type="submit">Support — ZAR 240/month</button>
+      <p class="support-status" id="support-status" role="status"></p>
+    </form>
   </main>
 
-  <script src="payments.js?v=20260522-01"></script>
+  <footer class="footer section" id="contact">
+    <div class="section-body footer-grid">
+      <p><a href="mailto:hello@anthemresearch.xyz">contact</a></p>
+      <p><a href="support.html">support</a></p>
+    </div>
+  </footer>
+
+  <script src="support.js?v=20260529-01"></script>
 </body>
 </html>
