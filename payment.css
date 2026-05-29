@@ -1,7 +1,14 @@
-.payment-page{max-width:var(--max);margin:0 auto;padding:clamp(3rem,6vw,6rem) var(--pad) clamp(5rem,8vw,8rem)}
-.payment-intro{max-width:42rem;margin-bottom:clamp(2.5rem,5vw,5rem)}
+.payment-page{max-width:var(--max);margin:0 auto;padding:clamp(8rem,18vh,15rem) var(--pad) clamp(8rem,14vw,15rem)}
+.payment-intro{max-width:44rem;margin-bottom:clamp(2rem,4vw,4rem)}
 .payment-intro p{margin:0;font-size:clamp(1rem,1.15vw,1.08rem);line-height:1.62}
 .payment-intro p+p{margin-top:1rem}
+.support-intro-block h1{margin:.55rem 0 clamp(1.25rem,2.5vw,2.25rem);font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:clamp(2.55rem,4.6vw,5.25rem);line-height:.98;letter-spacing:-.058em}
+.support-form{max-width:28rem;display:grid;gap:.7rem}
+.support-form label{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.09em}
+.support-form input{width:100%;border:1px solid var(--soft-rule);background:transparent;color:var(--text);font:inherit;padding:.85rem .9rem;border-radius:0}
+.support-form button{width:max-content;border:1px solid var(--text);background:transparent;color:var(--text);font:inherit;padding:.85rem 1rem;cursor:pointer;margin-top:.5rem}
+.support-form button:disabled{opacity:.55;cursor:wait}
+.support-status{min-height:1.4rem;color:var(--muted);font-size:.95rem;line-height:1.45}
 .payment-tiers{max-width:58rem}
 .payment-tier{display:grid;grid-template-columns:minmax(8rem,13rem) minmax(0,1fr) auto;gap:clamp(1rem,3vw,4rem);align-items:baseline;padding:1.15rem 0}
 .payment-tier h2,.payment-tier p{margin:0}
@@ -11,4 +18,4 @@
 .payment-action{text-decoration:underline;text-underline-offset:.16em;white-space:nowrap}
 .payment-note{max-width:42rem;margin-top:clamp(2.5rem,5vw,5rem);color:var(--muted);font-size:.95rem;line-height:1.55}
 .payment-note p{margin:0}.payment-note p+p{margin-top:.8rem}
-@media(max-width:760px){.payment-tier{grid-template-columns:1fr;gap:.4rem;padding:1.5rem 0}.payment-price{white-space:normal}}
+@media(max-width:760px){.payment-page{padding-top:clamp(8rem,22vh,13rem)}.payment-tier{grid-template-columns:1fr;gap:.4rem;padding:1.5rem 0}.payment-price{white-space:normal}.support-form button{width:100%}}
