@@ -7,7 +7,7 @@
   <meta name="description" content="Voluntary monthly support for Anthem Research.">
   <link rel="stylesheet" href="styles.css?v=20260526-02">
   <link rel="stylesheet" href="theme.css?v=20260521-01">
-  <link rel="stylesheet" href="project.css?v=20260529-01">
+  <link rel="stylesheet" href="project.css?v=20260529-02">
 </head>
 <body>
   <header class="site-header page-header">
@@ -24,7 +24,7 @@
     <section class="project-hero">
       <p class="kicker">Support</p>
       <div>
-        <h1>Support Anthem Research.</h1>
+        <h1>Support</h1>
         <p>Voluntary monthly support for Anthem Research’s independent research, writing, design, and experimental systems work.</p>
       </div>
     </section>
@@ -33,11 +33,8 @@
       <div>
         <p>Occasional updates may be sent at Anthem’s discretion. No guaranteed deliverables, product access, consulting time, commercial rights, or access rights are included.</p>
         <p>Support is processed through PayPal as a monthly subscription.</p>
+        <p><a class="support-link" href="https://www.paypal.com/ncp/payment/2XG9U7X2GA6CL">Continue to PayPal</a></p>
       </div>
-    </section>
-
-    <section class="project-brief support-paypal">
-      <div id="paypal-button-container-P-5FH69865G8708323TNIM6PJY"></div>
     </section>
   </main>
 
@@ -47,25 +44,5 @@
       <p><a href="support.html">support</a></p>
     </div>
   </footer>
-
-  <script src="https://www.paypal.com/sdk/js?client-id=AVwLBXjyX6b6INliC9vpkkwBRE3gqBa5Ve_g6U-AH8JGsaBUSyCp2nYXjg9KeLoKOi6zQoucYaGkgtAU&amp;vault=true&amp;intent=subscription" data-sdk-integration-source="button-factory"></script>
-  <script>
-    paypal.Buttons({
-      style: {
-        shape: 'rect',
-        color: 'white',
-        layout: 'vertical',
-        label: 'paypal'
-      },
-      createSubscription: function(data, actions) {
-        return actions.subscription.create({
-          plan_id: 'P-5FH69865G8708323TNIM6PJY'
-        });
-      },
-      onApprove: function(data, actions) {
-        window.location.href = '/support.html?subscription=' + encodeURIComponent(data.subscriptionID);
-      }
-    }).render('#paypal-button-container-P-5FH69865G8708323TNIM6PJY');
-  </script>
 </body>
 </html>
