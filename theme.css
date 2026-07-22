@@ -1,14 +1,14 @@
 :root {
-  --text: #123f7a;
-  --muted: #61758a;
+  --text: #000000;
+  --muted: #000000;
 }
 
 body {
-  color: #123f7a;
+  color: #000000;
 }
 
 .kicker,
 .section-label,
 .hero-copy {
-  color: #61758a;
+  color: #000000;
 }
