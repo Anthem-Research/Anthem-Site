@@ -1,14 +1,37 @@
 :root {
+  --bg: #ffffff;
   --text: #000000;
   --muted: #000000;
+  --rule: rgba(0, 0, 0, 0.16);
+  --soft-rule: rgba(0, 0, 0, 0.08);
 }
 
+html,
 body {
-  color: #000000;
+  background: #ffffff !important;
+  color: #000000 !important;
 }
 
+body,
+body *,
+a,
+a:visited,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+nav,
+footer,
 .kicker,
 .section-label,
-.hero-copy {
-  color: #000000;
+.hero-copy,
+.project p,
+.project-brief p,
+.compact-date,
+.compact-type,
+.compact-copy p {
+  color: #000000 !important;
 }
