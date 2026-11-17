@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARENA: A Protocol for Bounded Institutional Coordination — Anthem</title>
+<meta name="description" content="ARENA technical protocol paper v0.2: institutions, trust boundaries, registry and membership semantics, dispute verification, adversarial model, implementation status and evaluation.">
+<link rel="stylesheet" href="../styles.css?v=20260722-02">
+<link rel="stylesheet" href="../theme.css?v=20260722-02">
+<link rel="stylesheet" href="../compact.css?v=20260722-01">
+<style>
+.paper h1{font-size:clamp(1.4rem,2vw,1.85rem);font-weight:400;line-height:1.25;letter-spacing:-.015em;margin:0 0 1.35rem}
+.paper h2{font-size:1.05rem;font-weight:400;line-height:1.4;margin:2.35rem 0 .7rem}
+.paper h3{font-size:1rem;font-weight:400;margin:1.35rem 0 .55rem}
+.paper p,.paper li{font-size:.98rem;line-height:1.62}
+.paper p{margin:.75rem 0}
+.paper ul,.paper ol{padding-left:1.4rem;margin:.6rem 0 1.2rem}
+.paper li{margin:.3rem 0}
+.paper strong{font-weight:600}
+.paper code,.paper pre{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.89em}
+.paper pre{padding:.65rem 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.paper table{border-collapse:collapse;min-width:480px;font-size:.87rem;line-height:1.45}
+.paper td,.paper th{border-bottom:1px solid #ddd;padding:.6rem .85rem .6rem 0;text-align:left;vertical-align:top}
+.paper th{font-weight:600}
+.paper .table-scroll{overflow-x:auto;max-width:100%;margin:1rem 0}
+.paper{max-width:52rem}
+.paper p{max-width:46rem}
+@media(max-width:760px){.paper table{font-size:.8rem}}
+</style>
+</head>
+<body>
+<header class="site-header page-header"><a class="wordmark" href="/">Anthem</a><nav aria-label="Primary navigation"><a href="/#work">Work</a><a href="/releases.html">Releases</a><a href="mailto:hello@anthemresearch.xyz">Contact</a></nav></header>
+<main class="compact-page"><section class="research-text paper">
+<h1>ARENA: A Protocol for Bounded Institutional Coordination</h1>
+<p>Technical paper · Draft v0.2 · 17 November 2026</p>
+<h2>Abstract</h2>
+<p>ARENA specifies a minimum institutional interface for coordinating participants and shared resources within a bounded physical or operational environment. Its primary object is not a token, DAO or smart contract, but an institution defined by a place or operating domain, an objective, a charter, named authority, membership obligations, an evidence process, and explicit renewal and termination conditions. A separate recognition registry records the status and version of participating institutions. Optional contracts can represent membership and verify signed dispute decisions.</p>
+<p>The central technical problem is the consistency of authority across three different systems: the physical and legal environment in which obligations arise; off-chain documents and human decisions that define and interpret those obligations; and a digital record that may attest to or execute selected outcomes. ARENA cannot remove the trust boundary between them. Its proposed contribution is to make that boundary explicit, legible and testable.</p>
+<p>This paper defines the protocol objects and trust assumptions, specifies candidate lifecycle invariants, documents the precise behaviour of three experimental Solidity contracts, analyses unimplemented guarantees, and sets out falsifiable criteria for evaluating the design. It reports a reference implementation and baseline contract tests, not a deployed institution, security audit or empirical performance result.</p>
+<h2>1. Problem and unit of analysis</h2>
+<p>Consider a temporary field station jointly used by an owner, an operator, researchers and equipment custodians. Access, maintenance, expenditure, safety and records are interdependent. A conventional online governance structure can record votes, but cannot by itself determine who controls the gate, owns the sensor, is qualified to suspend fieldwork or bears liability when an obligation is breached. An informal association may handle these questions without explicit rules until conflict exposes the missing authority structure.</p>
+<p>ARENA takes the bounded operating environment as its initial unit. Its design claims are deliberately narrower than those of a network state. It does not claim sovereignty or propose that cryptographic state replaces property rights, contracts or public law. Nor does it require on-chain organisation: a well-kept charter and decision register can constitute the first operating layer.</p>
+<p>Let an Arena instance be described by:</p>
+<pre><code>A = (B, M, K, C, P, E, L)</code></pre>
+<p>where B is a declared boundary, M an observable mission, K a governance kernel, C a custody and resource model, P the participant and obligation set, E an evidence/dispute process, and L a lifecycle specification. The tuple is an analytical model, not an implemented canonical binary encoding. A valid operating instance must also identify the external legal or property authority enabling use of B. Its existence cannot be inferred from an on-chain record.</p>
+<p>ARENA distinguishes two objects that must not be conflated:</p>
+<ol>
+<li>The <strong>Arena</strong>, a local institutional arrangement operated by identifiable people within physical and legal constraints.</li>
+<li>The <strong>ARENA Registry</strong>, a protocol-governed recognition record which expresses that an Arena has satisfied a stated structural standard at a particular review point.</li>
+</ol>
+<p>Recognition is a statement about documented protocol conformity. It is not adjudication of title, a proof of consent, a safety certification, a jurisdiction or a licence.</p>
+<h2>2. Actors, authority and trust boundaries</h2>
+<p>An Arena may assign multiple roles to one person, although separation is preferable when the risk of unilateral action is material.</p>
+<ul>
+<li><strong>Site owner or lawful controller:</strong> controls access and assets under applicable law. This power does not originate in ARENA.</li>
+<li><strong>Steward/operator:</strong> has enumerated routine operational powers and, if expressly authorised, time-limited emergency powers.</li>
+<li><strong>Member:</strong> has an explicit admission record, enumerated obligations and a defined right to withdraw from membership.</li>
+<li><strong>Custodian:</strong> controls identified shared assets or a treasury under documented approval thresholds.</li>
+<li><strong>Dispute reviewer:</strong> interprets evidence under a preselected procedure and issues a reasoned outcome; the independence conditions must be specified.</li>
+<li><strong>Registry registrar/status manager:</strong> can record recognition and status in the reference registry. This is an administrative, not judicial, role.</li>
+<li><strong>Public observer:</strong> can verify public record consistency without assuming that the underlying physical claims are accurate.</li>
+</ul>
+<p>The <strong>physical/legal layer</strong> determines ownership, permission, safety and enforcement. The <strong>institutional layer</strong> determines charter obligations, authority delegations, review and exit. The <strong>record layer</strong> preserves selected hashes, versions, events and signatures. A valid cryptographic proof establishes only a proposition about a particular key, message or record. It does not bridge these layers without trusted observation and accepted decision procedures.</p>
+<p>The v0.1 registry centralises registration, status changes and module records in role-bearing addresses. The resulting trust assumption is explicit: registry officers can make recognition decisions and overwrite certain current values. A future council or DAO is not evidence that v0.1 is decentralised.</p>
+<h2>3. Minimum institutional object</h2>
+<p>The public charter for an Arena must identify the following fields to enable a structural review. These requirements are drawn from the existing governance primitive, recognition standard and charter template.</p>
+<div class="table-scroll"><table><thead><tr><th>Field</th><th>Minimum contents</th><th>Unresolved implementation question</th></tr></thead><tbody><tr><td>Boundary</td><td>Operating domain, exclusions, lawful access basis</td><td>Canonical boundary changes and private coordinates</td></tr><tr><td>Objective</td><td>Primary mission, observable success condition, time horizon</td><td>Material change threshold</td></tr><tr><td>Authority</td><td>Named operator; routine, reserved and emergency powers</td><td>Approval and override representation</td></tr><tr><td>Participants</td><td>Entry, role, contribution, suspension/removal, withdrawal</td><td>Identity verification and credential privacy</td></tr><tr><td>Custody</td><td>Asset controller, treasury authority, spending approval</td><td>Multisig quorum and recovery</td></tr><tr><td>Disputes</td><td>Intake, reviewer, evidence, remedy classes, appeal</td><td>Independent reviewer selection and enforcement</td></tr><tr><td>Lifecycle</td><td>Reporting, renewal gate, failure, dissolution</td><td>On-chain state machine and time enforcement</td></tr><tr><td>Records</td><td>Public charter version, private evidence retention, audit trail</td><td>Storage availability and access controls</td></tr></tbody></table></div>
+<p>The charter must distinguish <strong>powers</strong> from <strong>observations</strong>. The operator may be authorised to close a facility for a safety reason; a record that the closure occurred does not prove the reason was true. Equally, a membership record establishes recorded status, not physical access or a guarantee of housing, employment or property use.</p>
+<p>There must be an unambiguous rule for the precedence of charter provisions, legal agreements and emergency duties. The present source documents require this separation but do not define a universal conflict-resolution order, because applicable law and asset control vary by site.</p>
+<h2>4. Recognition and lifecycle semantics</h2>
+<p>The documentary status vocabulary is:</p>
+<pre><code>Proposed | Active | UnderReview | Legacy | Revoked | Dissolved</code></pre>
+<p>The six values are already represented as the ArenaStatus enumeration in ArenaRegistry.sol. The recognition standard, however, specifies an off-chain review of boundary, authority, membership, disputes, exit, renewal and legal consistency before recognition. These semantics are not enforced by the reference contract.</p>
+<h3>4.1 Candidate normative transitions</h3>
+<p>The following is a <strong>proposed protocol rule</strong>, not a claim about the deployed Solidity interface:</p>
+<div class="table-scroll"><table><thead><tr><th>Transition</th><th>Required evidence or authority</th><th>Effect</th></tr></thead><tbody><tr><td>Proposed → Active</td><td>Review receipt against identified standard and charter digest</td><td>Recognition begins</td></tr><tr><td>Active → UnderReview</td><td>Expired renewal or documented challenge by authorised reviewer</td><td>Recognition flagged; operation unaffected</td></tr><tr><td>UnderReview → Active</td><td>Resolution record and renewed evidence where relevant</td><td>Recognition restored</td></tr><tr><td>Active/UnderReview → Legacy</td><td>Explicit retirement from current standard or completed wind-down without dissolution</td><td>Historical status</td></tr><tr><td>Proposed/Active/UnderReview/Legacy → Revoked</td><td>Reasoned recognition decision with recorded basis</td><td>Recognition withdrawn</td></tr><tr><td>Active/UnderReview/Legacy → Dissolved</td><td>Institution's own dissolution record and settlement reference</td><td>Closure recorded</td></tr></tbody></table></div>
+<p>An actual transition policy also needs rules for reopening, administrative error, appeal and terminal-state finality. No final policy has yet been agreed. In particular, <strong>a recorded registry status must not directly seize a local asset, remove lawful occupants or dissolve a legal entity</strong>.</p>
+<p>For a robust recognition system the following invariants are required as design targets:</p>
+<p><strong>R1 — No unreviewed activation.</strong> A record cannot become Active solely because an applicant submits metadata.</p>
+<p><strong>R2 — Traceable recognition.</strong> An Active state references a known standard version, charter digest and review decision.</p>
+<p><strong>R3 — Bounded administrative authority.</strong> A status change has an authorised decision path and an inspectable reason or reason digest.</p>
+<p><strong>R4 — Renewable recognition.</strong> An expired renewal interval cannot silently continue as a current certification of protocol conformity.</p>
+<p><strong>R5 — Historical reconstruction.</strong> Observers can reconstruct changes to charter versions, operators and recognition state from an available event/archive history.</p>
+<p>The reference contract <strong>does not satisfy R1, R2, R3 and R4 as enforceable on-chain guarantees</strong>. It provides role-restricted writes and events but does not validate review evidence, allowed transitions or expiry. R5 depends on preserving chain logs and off-chain document versions; current mutable storage alone is insufficient to reconstruct complete semantics.</p>
+<h3>4.2 Current registry behaviour</h3>
+<p>The Solidity registry uses a sequential uint256 id. registerArena() requires a non-empty name, metadata URI and protocol version, plus a nonzero operator. It immediately stores status Active. Registrar, status-manager and module-manager roles are governed by OpenZeppelin AccessControl; an initial admin receives all four roles. An authorised status manager can assign any enumerated status at any time.</p>
+<p>Stored record fields are: id, name, metadataURI, charterHash, operator, status, protocolVersion, registeredAt, renewalDueAt, updatedAt. Optional modules are keyed by bytes32 module type and store an address, URI and active flag. updateArenaMetadata(), updateOperator(), updateRenewalDueAt(), updateArenaStatus() and setArenaModule() are role-restricted administrative mutations.</p>
+<p>There is no on-chain predicate checking that a charter digest corresponds to a reviewed charter, that the operator controls the declared site, that renewal occurred, or that a module address implements any particular interface. This is intentional simplicity at the prototype stage, but it limits the meaning of a registry read.</p>
+<h2>5. Identity, versioning and historical continuity</h2>
+<p>The separate Arena Identity Specification proposes an identity derived from a canonical geographic description, mission, genesis timestamp, origin repository and optional chain anchor. It aims to preserve identity across key rotation and contract migration, subject to continuity of boundary, mission and governance kernel.</p>
+<p>This proposal currently conflicts with the registry implementation in two ways. First, the registry allocates incremental numeric IDs rather than a hash of a canonical identity document. Second, the canonicalisation of geographic and mission descriptions, and the threshold for a “material” change, remain unspecified.</p>
+<p>A serious interoperable identity standard must define byte-level canonicalisation, namespace/domain separation, versioning and collision handling. Without them, two implementers may hash semantically identical descriptions differently, while a strategically rewritten mission could retain a familiar name without institutional continuity.</p>
+<p>The minimum public version trail therefore consists of an Arena identifier, successive charter digests, the protocol standard used for each recognition decision, timestamped transitions, and an archive of the documents to which the digests refer. Cryptographic digests provide integrity checks only if users can independently obtain the referenced bytes. A content-addressed URI without durable availability is not sufficient.</p>
+<h2>6. Membership, obligations and exit</h2>
+<p>The experimental ArenaMembership contract represents:</p>
+<pre><code>NONE → ACTIVE → EXITED
+             ↘ REMOVED</code></pre>
+<p>The operator can add a non-active address, remove an active address with a nonzero enumerated reason, and transfer the operator role. An active member can invoke exit() without the operator's signature. activeMemberCount tracks addresses in ACTIVE state. An exited or removed address may be admitted again by the operator.</p>
+<p>This establishes a <strong>narrow on-chain permissionless exit property</strong>: an ACTIVE wallet can set its own contract state to EXITED. It does not guarantee repayment, retrieval of property, physical departure, continued access to records, nor freedom from coercive real-world dependencies.</p>
+<p>The contract does not store a charter agreement, a join signature, contribution obligations, bond balances, evidence of breach, an appeal period or operator removal limits. The operator can remove a member by specifying a reason enum; the enum is not evidence of the underlying conduct. No active Arena identity is stored in the membership contract, so its relationship to a specific registry record must be established externally.</p>
+<p>A stronger membership protocol would distinguish four separate events: <strong>acceptance of terms</strong>, <strong>entry into membership</strong>, <strong>withdrawal from membership</strong>, and <strong>settlement of residual obligations</strong>. These events must not be collapsed into a single token transfer or boolean. Exit should be permissionless at the level of membership state; disputed liabilities and custody should follow precommitted, reviewable processes rather than indefinitely prevent exit.</p>
+<p>The v0.1 specification permits optional bonds, but no bond-escrow contract is established by the three reference contracts reviewed for this paper. No fee, yield, penalty, refund or financial-protection claim follows from ARENA's current implementation.</p>
+<h2>7. Dispute outcomes: evidence, signatures and execution</h2>
+<p>Evidence is generated in physical settings and interpreted off-chain. The dispute payload specification defines an Arena ID, dispute ID, subject, outcome class, parameters, evidence hashes, narrative hash, effective time, expiry and authorised signer set. Example classes include WARN, REMOVE_MEMBER, SLASH_BOND, REFUND_BOND, FREEZE_ROLE and DISSOLVE_ARENA.</p>
+<p>The existing DisputeOutcomeVerifier.sol implements a much narrower primitive. It stores one authorised signer and an immutable bytes32 arenaId. Its computeOutcomeId() computes:</p>
+<pre><code>keccak256(abi.encode(
+  arenaId, disputeId, subject, outcomeType,
+  outcomeParametersHash, narrativeHash,
+  effectiveTime, expiryTime
+))</code></pre>
+<p>verifyOutcome() checks Arena ID equality, effective and expiry timestamps, and recovery of the designated signer from an Ethereum personal-sign signature over that outcome hash. executeOutcome() marks that exact outcome hash executed and emits an event.</p>
+<p><strong>It does not call a membership, bond, treasury or dissolution contract.</strong> The name executeOutcome denotes recording a verified outcome, not applying the remedy to Arena operations.</p>
+<h3>7.1 Security boundaries</h3>
+<p>There are four material limitations in the reference verifier.</p>
+<p><strong>Domain separation.</strong> The signed outcome does not include chain ID or verifying-contract address. Identical data may be replayable across verifier deployments that accept the same Arena ID and signer. Replay prevention is local to one deployed contract and one exact hash.</p>
+<p><strong>Dispute uniqueness.</strong> Replay protection is keyed to the entire outcome hash, not to an immutable dispute ID plus revision policy. A second outcome with different parameters can be recorded for the same dispute ID. Whether that represents an appeal, correction or conflict is undefined.</p>
+<p><strong>Signer governance.</strong> The authorised signer can unilaterally rotate the signer address. The implementation does not establish committee threshold rules, timelocked rotation, conflicted-reviewer handling or an independently verifiable authority delegation.</p>
+<p><strong>Evidence and remedial execution.</strong> Evidence hashes and narrative meaning are not checked by the verifier; indeed the current hash includes a narrativeHash but not a list of evidence hashes. No contract-level allowlist maps outcome classes to permissible remedies, and no cross-contract execution capability is implemented.</p>
+<p>The following candidate invariant is therefore <strong>not yet implemented</strong>:</p>
+<p><strong>D1 — A remedy is executable only if it is authorised by the applicable charter and outcome policy, bound to the intended chain and contract, associated with a single live dispute revision, signed by the required independent reviewer set, and still subject to the prescribed appeal and effective-time conditions.</strong></p>
+<p>A future design must separately specify appeal windows, reversals, conflicting decisions, evidence availability, nonce policy and idempotent execution. Merely adding another digital signature does not solve factual error or biased adjudication.</p>
+<h2>8. Custody and economic mechanism</h2>
+<p>ARENA addresses recurrent coordination failures: contribution asymmetry, ambiguous authority, opportunistic control of common assets, mission drift and lock-in. These are economic and institutional hypotheses, not measured effects.</p>
+<p>The decision log identifies multisignature custody as the preferred arrangement for shared funds, with optional bond escrow. It leaves signing thresholds, emergency spending, signer replacement and recovery unspecified. The reference registry's MODULE_MANAGER_ROLE can advertise a treasury or bond module, but a module reference is not proof that custody is secure or that any represented funds exist.</p>
+<p>An operational charter must distinguish <strong>title</strong>, <strong>possession</strong>, <strong>use permission</strong>, <strong>discretionary spending authority</strong> and <strong>recordkeeping responsibility</strong>. These may be held by different entities. A tokenised treasury cannot allocate legal title to a physical asset by declaration.</p>
+<p>Voluntary exit is a central constraint on the exercise of institutional power, but nominal withdrawal is insufficient. The relevant costs include unreturned deposits, lost accommodation or work, removal of personal property, data portability and access to dispute records. ARENA's empirical hypothesis is that ex ante disclosure of those obligations, along with explicit review and dissolution paths, may reduce bargaining ambiguity. It has not yet been tested against comparable projects with less formal governance.</p>
+<p>No ARENA token, public minting mechanism, fee economy or tradable governance right is specified for v0.1. Future federation must not be represented as an implemented market or decentralised constitutional system.</p>
+<h2>9. Adversarial model</h2>
+<p>The design assumes neither perfect administrators nor perfect observers. The following attacks and failures must be considered before operational deployment.</p>
+<div class="table-scroll"><table><thead><tr><th>Failure mode</th><th>Attack or breakdown</th><th>Current boundary</th><th>Required additional control</th></tr></thead><tbody><tr><td>Recognition capture</td><td>Registrar recognises an unreviewed site</td><td>Only a registrar role may register</td><td>Review attestation and auditable admission rule</td></tr><tr><td>Status rewriting</td><td>Status manager reactivates revoked/expired record</td><td>Role-restricted update and event</td><td>Restricted transitions, reason record, appeal</td></tr><tr><td>Charter equivocation</td><td>Operator presents different charter text to participants</td><td>Digest field exists</td><td>Signed version receipt, canonical content, archive</td></tr><tr><td>Arbitrary removal</td><td>Operator assigns removal reason without independent finding</td><td>Operator role and nonzero reason</td><td>Charter-linked authority, evidence and contestation</td></tr><tr><td>Double outcome</td><td>Distinct signed outcomes for one dispute</td><td>Hash-level replay check</td><td>Dispute revision and finality policy</td></tr><tr><td>Cross-deployment replay</td><td>Signature valid at multiple verifier instances</td><td>Arena ID and signer check</td><td>Chain/contract domain separation</td></tr><tr><td>Signer compromise</td><td>Key is stolen, lost or coerced</td><td>Unilateral signer rotation</td><td>Threshold and recovery governance</td></tr><tr><td>Evidence suppression</td><td>Custodian withholds off-chain records</td><td>Hashes can reference documents</td><td>Retention, availability and independent access</td></tr><tr><td>Nonrenewal</td><td>Active record remains active past due date</td><td>Deadline is stored</td><td>Explicit expiry/review semantics</td></tr><tr><td>Material exit barrier</td><td>Participant loses assets or safe accommodation</td><td>On-chain membership exit</td><td>Off-chain contractual and custody safeguards</td></tr></tbody></table></div>
+<p>These controls are architectural requirements, not verified features. The most important trust boundary remains the one between <strong>accurate recording of a decision</strong> and <strong>legitimate authority to make that decision</strong>.</p>
+<h2>10. Reference implementation and verification status</h2>
+<p>The development repository contains three experimental Solidity contracts and Hardhat test files:</p>
+<ul>
+<li>ArenaRegistry.sol — role-based recognition record with mutable metadata, operator, status, renewal date and modules.</li>
+<li>ArenaMembership.sol — operator-managed membership with self-exit and active-count tracking.</li>
+<li>DisputeOutcomeVerifier.sol — single-signer outcome verification, time checks and local hash replay protection.</li>
+</ul>
+<p>The repository also includes an operator guide, recognition standard, charter template, status model, identity specification, decision log, module standard and proposed DAO governance roadmap.</p>
+<p>At the time of this paper, tests in the repository cover ordinary registration and updates, basic access restrictions, membership admission and exit, invalid calls, successful dispute verification, wrong Arena ID, invalid signer, exact-hash replay, early effective times and expiry. This paper has inspected source and test definitions; it does <strong>not</strong> report a fresh execution of the test suite, code coverage figures, formal verification or an external security audit.</p>
+<p>The following matrix prevents document claims from being mistaken for contract guarantees.</p>
+<div class="table-scroll"><table><thead><tr><th>Protocol concern</th><th>Reference code state</th><th>Institutional or future dependency</th></tr></thead><tbody><tr><td>Site boundary and objective</td><td>Not represented as verified fields</td><td>Public charter and lawful access review</td></tr><tr><td>Recognition</td><td>Role-restricted registration, initially Active</td><td>Review evidence and transition policy</td></tr><tr><td>Charter integrity</td><td>Mutable bytes32 charterHash</td><td>Canonical content, version acceptance, archival access</td></tr><tr><td>Membership self-exit</td><td>Implemented for ACTIVE address</td><td>Settlement and safe practical exit</td></tr><tr><td>Bond custody</td><td>No bond contract in reviewed core</td><td>Custody and remedial rules</td></tr><tr><td>Dispute signature</td><td>Single signer, personal-sign</td><td>Domain separation, committee logic, appeal</td></tr><tr><td>Dispute remedy</td><td>Records verified outcome only</td><td>Authorised remedy mapping and execution</td></tr><tr><td>Renewal</td><td>Stores uint64 deadline</td><td>Expiry and review enforcement</td></tr><tr><td>DAO federation</td><td>Not implemented in reviewed contracts</td><td>Identity, franchise, anti-capture rules</td></tr></tbody></table></div>
+<p>A protocol conformance suite is not complete until it includes negative and adversarial tests against the desired invariants, not just successful calls to reference methods. Required test families include: attempted unreviewed recognition, forbidden status transitions, stale and conflicting charters, attempted early removal, repeated dispute revisions, signature replay across deployments, compromised signer recovery, missing evidence, renewal expiry and loss of access to the physical site.</p>
+<h2>11. Evaluation design</h2>
+<p>ARENA's claim of usefulness must be operationally testable. A controlled initial study can compare two hypothetical site operating agreements through a set of identical scenarios; it must then be followed by real, consent-based evaluation before claims of performance.</p>
+<p>Candidate measures are:</p>
+<ul>
+<li><strong>Authority clarity:</strong> proportion of scenario decisions for which participants identify the same authorised actor and escalation path.</li>
+<li><strong>Dispute handling:</strong> number of unresolved decision points, time to a reviewable outcome, and frequency of contradictory interpretations.</li>
+<li><strong>Contribution asymmetry:</strong> difference between documented obligations and verified completion, with attention to measurement error.</li>
+<li><strong>Exit friction:</strong> costs and time required to leave, recover property and settle obligations, separately from on-chain status.</li>
+<li><strong>Record integrity:</strong> proportion of decisions for which the applicable charter version and supporting evidence remain retrievable.</li>
+<li><strong>Authority concentration:</strong> proportion of decisions made unilaterally, including emergency exceptions and later reversals.</li>
+</ul>
+<p>A tabletop comparison tests <strong>legibility and interpretability</strong>, not behaviour in a live institution. Field comparisons require explicit consent, handling of sensitive records, local legal review where necessary, and acknowledgement of confounders such as site type, participant selection and dispute severity. No quantitative improvement is asserted at this stage.</p>
+<h2>12. Priority unresolved decisions</h2>
+<p>Before a production protocol can claim enforceable membership, reliable recognition or verifiable remedies, the following decisions require specification and implementation.</p>
+<p><strong>Identity and charters.</strong> Canonical Arena identifier, charter document encoding, revision acceptance, fork/continuity rules and archival guarantees.</p>
+<p><strong>Recognition.</strong> Independent review proof, status-transition policy, expiry and renewal behaviour, reason codes, appeal and correction.</p>
+<p><strong>Authority and membership.</strong> Admission consent, role assignment, restricted removals, emergency powers, re-entry and relation between local and registry identities.</p>
+<p><strong>Dispute finality.</strong> Typed and domain-separated signatures, dispute revision rules, committee thresholds, appeal intervals, authorised action map and atomic or reversible application.</p>
+<p><strong>Custody and exit.</strong> Treasury threshold and recovery, optional bond escrow, refund sequencing, outstanding liabilities and safe departure from a physical site.</p>
+<p><strong>Evidence.</strong> Hash and storage formats, retention, encrypted/private document access, deletion requirements and independent availability.</p>
+<p><strong>Verification.</strong> Contract property tests, conformance harnesses, independent review, adversarial tabletop studies and eventually a consenting site-level pilot.</p>
+<p>These are not optional polishing tasks. They define whether ARENA's central design principles can be implemented without creating the very discretionary control and lock-in that the protocol seeks to limit.</p>
+<h2>13. Conclusion</h2>
+<p>ARENA proposes that coordination in a physical environment can be made more explicit by specifying its boundaries and decision rights before selecting digital governance machinery. The present reference implementation establishes three partial capabilities: a stewarded registry of mutable recognition records, a minimal membership state machine with self-exit, and signed outcome verification with local replay protection. None currently enforces the full institutional guarantees described in the source specifications.</p>
+<p>The distinguishing question is not whether governance can be put on a blockchain. It is whether a formal institution can preserve accountable authority, evidence, reversible participation and practical exit when digital records and physical obligations diverge.</p>
+<p>The protocol remains an open research and engineering problem. This paper identifies its testable interfaces, implemented limits and unresolved security and institutional decisions. A stronger claim must be earned through specification conformance, adversarial testing and observed use.</p>
+<h2>Source basis</h2>
+<p>This paper is based on the ARENA repository's governance minimum primitive, identity and membership specifications, lifecycle and dispute payload specifications, recognition and status standards, charter template, operator guide, decision log, module standard and governance roadmap; plus ArenaRegistry.sol, ArenaMembership.sol, DisputeOutcomeVerifier.sol and their accompanying Hardhat tests. The original Registry DAO Whitepaper v0.1 is retained as an archived concept-stage source.</p>
+<p>The development repository remains private. Public text does not constitute proof of deployment, title, legal compliance, solvency, safety, audited code or empirical effectiveness.</p>
+</section></main>
+<footer class="footer section compact-footer"><div class="section-body footer-grid"><p><a href="mailto:hello@anthemresearch.xyz">contact</a></p></div></footer>
+</body></html>
